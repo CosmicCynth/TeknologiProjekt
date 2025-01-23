@@ -14,6 +14,7 @@ function love.load()
     sceneTable.flerePoster = {}
     sceneTable.opsparing = {}
     sceneTable.planner = {}
+    sceneTable.konto = {}
 
     font = love.graphics.newFont("font/workSans.ttf",25.5)
     love.graphics.setFont(font)
@@ -43,6 +44,13 @@ function love.load()
     sceneTable.burgerMenu.guideKnap.x = 22
     sceneTable.burgerMenu.guideKnap.y = 232
     sceneTable.burgerMenu.guideKnap.radius = 20
+
+    sceneTable.burgerMenu.kontoKnap = {}
+    sceneTable.burgerMenu.kontoKnap.x = 22
+    sceneTable.burgerMenu.kontoKnap.y = 150
+    sceneTable.burgerMenu.kontoKnap.radius = 20
+
+
 
     
     --Budget
@@ -112,6 +120,16 @@ function love.load()
     sceneTable.planner.backKnap.y = 450
     sceneTable.planner.backKnap.radius = 32
 
+    --Konto
+    sceneTable.konto.sprite = love.graphics.newImage("sprite/konto.png")
+
+    sceneTable.konto.burgerKnap = {}
+    sceneTable.konto.burgerKnap.x = 16
+    sceneTable.konto.burgerKnap.y = 16
+    sceneTable.konto.burgerKnap.radius = 32
+
+    
+
     
 
     --Timer
@@ -136,6 +154,7 @@ function love.draw()
         love.graphics.circle("fill",sceneTable.burgerMenu.burgerKnap.x,sceneTable.burgerMenu.burgerKnap.y,sceneTable.burgerMenu.burgerKnap.radius)
         love.graphics.circle("fill",sceneTable.burgerMenu.budgetKnap.x,sceneTable.burgerMenu.budgetKnap.y,sceneTable.burgerMenu.budgetKnap.radius)
         love.graphics.circle("fill",sceneTable.burgerMenu.guideKnap.x,sceneTable.burgerMenu.guideKnap.y,sceneTable.burgerMenu.guideKnap.radius)
+        love.graphics.circle("fill",sceneTable.burgerMenu.kontoKnap.x,sceneTable.burgerMenu.kontoKnap.y,sceneTable.burgerMenu.kontoKnap.radius)
         love.graphics.draw(sceneTable.burgerMenu.sprite,0,0)
        
     elseif scene == "budget" then
@@ -162,6 +181,9 @@ function love.draw()
     elseif scene == "planner" then
         love.graphics.circle("fill", sceneTable.planner.backKnap.x,sceneTable.planner.backKnap.y,sceneTable.planner.backKnap.radius)
         love.graphics.draw(sceneTable.planner.sprite,0,0)
+    elseif scene == "konto" then
+        love.graphics.circle("fill",sceneTable.konto.burgerKnap.x,sceneTable.konto.burgerKnap.y,sceneTable.konto.burgerKnap.radius)
+        love.graphics.draw(sceneTable.konto.sprite,0,0) 
     end
 
     --love.graphics.setColor(0,0,0,nil)
@@ -187,6 +209,7 @@ function love.mousereleased(x,y,button)
             mouseToTarget = distanceBetween(x,y,sceneTable.burgerMenu.burgerKnap.x,sceneTable.burgerMenu.burgerKnap.y)
             mouseToTarget1 = distanceBetween(x,y,sceneTable.burgerMenu.budgetKnap.x,sceneTable.burgerMenu.budgetKnap.y)
             mouseToTarget2 = distanceBetween(x,y,sceneTable.burgerMenu.guideKnap.x,sceneTable.burgerMenu.guideKnap.y)
+            mouseToTarget3 = distanceBetween(x,y,sceneTable.burgerMenu.kontoKnap.x,sceneTable.burgerMenu.kontoKnap.y)
             if mouseToTarget < sceneTable.burgerMenu.burgerKnap.radius and timer >= maxTimer then
                 timer = 0
                 sceneTxt = "Menu"
@@ -199,6 +222,10 @@ function love.mousereleased(x,y,button)
                 timer = 0 
                 sceneTxt = "Guide menu"
                 scene = "guide"
+            elseif mouseToTarget3 < sceneTable.burgerMenu.kontoKnap.radius and timer >= maxTimer then
+                timer = 0
+                sceneTxt = "Konto Menu"
+                scene = "konto"
             end
         end
 
@@ -281,7 +308,15 @@ function love.mousereleased(x,y,button)
             end
         end
 
-        
+        if scene == "konto" then
+            mouseToTarget = distanceBetween(x,y,sceneTable.konto.burgerKnap.x,sceneTable.konto.burgerKnap.y)
+
+            if mouseToTarget < sceneTable.konto.burgerKnap.radius and timer >= maxTimer then
+                timer = 0
+                sceneTxt = "Burger Menu"
+                scene = "burgerMenu"
+            end
+        end
     end
 end
 
